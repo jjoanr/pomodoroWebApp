@@ -21,7 +21,11 @@ function Timer() {
         setStudyTime(study)
         setBreakTime(breakDuration)
         setRepetitions(rep)
-    }
+        setIsRunning(false)
+        setCurrentPhase('study')
+        setCompletedRepetitions(0)
+        setTimeRemaining(studyTime * 60)
+    }   
 
     const updateSound = (e) => {
         setPlaySounds(e.target.checked);
