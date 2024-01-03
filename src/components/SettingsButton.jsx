@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { IoSettingsSharp } from 'react-icons/io5';
 
-function SettingsButton( {studyTime, breakTime, repetitions, playSounds, updateParameters, updateSound}) {
+function SettingsButton( {studyTime, breakTime, repetitions, playSounds, ambient, updateParameters, updateSound, updateAmbient}) {
   const [settings, setSettings] = useState(false)
   const [updatedStudyTime, setUpdatedStudyTime] = useState(studyTime);
   const [updatedBreakTime, setUpdatedBreakTime] = useState(breakTime);
@@ -69,6 +69,18 @@ function SettingsButton( {studyTime, breakTime, repetitions, playSounds, updateP
               onChange={updateSound}
               className="ml-4 size-5 p-1 border border-gray-300 rounded focus:outline-none focus:bg-white focus:border-purple-500 w-20"
             />
+          </p>
+          <p className='block text-gray-700 font-bold mb-2'>Ambient:
+            <select className="ml-7 p-1 border border-gray-300 rounded focus:outline-none focus:bg-white focus:border-purple-500 w-20"
+                    onChange={updateAmbient}
+                    value={ambient}
+            >
+              <option value="none">None</option>
+              <option value="rain">Rain</option>
+              <option value="fireplace">Fireplace</option>
+              <option value="river">River</option>
+              <option value="heater">Heater</option>
+            </select>
           </p>
           <div className='mt-2 text-center'>
             <label className='text-xs'>*Saving the values will reset the timer.</label>

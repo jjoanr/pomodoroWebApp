@@ -6,7 +6,7 @@ import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 function App() {
   return (
     <div className='flex flex-col min-h-screen bg-auto'>
-      <div className="flex flex-col flex-grow"
+      <div className="w-full h-screen object-cover object-left"
       style={{
         backgroundImage: `url(/wallpaper.jpg)`,
       }}

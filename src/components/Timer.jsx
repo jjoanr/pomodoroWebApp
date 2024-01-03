@@ -15,6 +15,7 @@ function Timer() {
     const [completedRepetitions, setCompletedRepetitions] = useState(0)
     const [showCongratulations, setShowCongratulations] = useState(false)
     const [playSounds, setPlaySounds] = useState(true) 
+    const [ambient, setAmbient] = useState('none') //none-rain-fireplace-river-heater
 
     const updateParameters = (study, breakDuration, rep) => {
         setStudyTime(study)
@@ -24,6 +25,10 @@ function Timer() {
 
     const updateSound = (e) => {
         setPlaySounds(e.target.checked);
+    }
+
+    const updateAmbient = (e) => {
+        setAmbient(e.target.value);
     }
 
     const formatTime = (seconds) => {
@@ -61,6 +66,52 @@ function Timer() {
     }, [currentPhase, studyTime, breakTime]);
 
     useEffect(() => {
+        let audio = null
+
+        if(isRunning && currentPhase === 'study') {
+            switch(ambient) {
+                case 'none':
+                    break
+                case 'rain':
+                    audio = new Audio('/rain.mp3');
+                    break
+                case 'fireplace':
+                    audio = new Audio('/fireplace.mp3');
+                    break
+                case 'river':
+                    audio = new Audio('/river.mp3');
+                    break
+                case 'heater':
+                    //audio = new Audio('/heater.mp3');
+                    break
+                default:
+                    break
+            }
+        }
+        // Play the audio if it's defined and not already playing
+        if (audio && audio.paused) {
+            audio.loop = true;
+            audio.play().catch((error) => {
+            // Handle playback error
+            console.error('Audio playback error:', error);
+            });
+        }
+
+        // Pause the audio if it shouldn't be played
+        if (audio && !isRunning) {
+            audio.pause();
+        }
+
+        return () => {
+            //Clean up
+            if (audio) {
+                audio.pause()
+                audio = null
+            }
+        }  
+    }, [isRunning, currentPhase]);
+
+    useEffect(() => {
         let interval;
         if (isRunning) {
           interval = setInterval(() => {
@@ -70,7 +121,8 @@ function Timer() {
                     setCurrentPhase('break')
                     setTimeRemaining(breakTime * 60)
                     if(playSounds) {
-                        let audio = new Audio('/end-study.mp3');
+                        let audio = new Audio('/end-study.mp3')
+                        audio.volume = 0.2
                         audio.play()
                     }
                 } else if (currentPhase === 'break' && completedRepetitions < repetitions - 1) {
@@ -78,7 +130,8 @@ function Timer() {
                     setTimeRemaining(studyTime * 60)
                     setCompletedRepetitions((prevRepetitions) => prevRepetitions + 1)
                     if(playSounds) {
-                        let audio = new Audio('/end-break.mp3');
+                        let audio = new Audio('/end-break.mp3')
+                        audio.volume = 0.2
                         audio.play()
                     }
                 } else {
@@ -88,7 +141,8 @@ function Timer() {
                     setTimeRemaining(studyTime * 60)
                     setShowCongratulations(true)
                     if(playSounds) {
-                        let audio = new Audio('/end-session.mp3');
+                        let audio = new Audio('/end-session.mp3')
+                        audio.volume = 0.2
                         audio.play()
                     }
                 }
@@ -138,8 +192,10 @@ function Timer() {
                     breakTime={breakTime}
                     repetitions={repetitions}
                     playSounds={playSounds}
+                    ambient={ambient}
                     updateSound={updateSound}
                     updateParameters={updateParameters}
+                    updateAmbient={updateAmbient}
                 />
             </div>
             {showCongratulations && (
