@@ -6,9 +6,9 @@ function PlayStopButton({ onClick, isPlaying }) {
   return (
     <button onClick={onClick}>
       {isPlaying ? (
-        <FaPause size={70} color='Gray' className='cursor-pointer hover:scale-110 ease-in duration-200'/>
+        <FaPause size={50} color='Gray' className='cursor-pointer hover:scale-110 ease-in duration-200'/>
       ) : (
-        <IoPlay size={70} color='Gray' className='cursor-pointer hover:scale-110 ease-in duration-200'/>
+        <IoPlay size={50} color='Gray' className='cursor-pointer hover:scale-110 ease-in duration-200'/>
       )}
     </button>
   );

@@ -24,7 +24,7 @@ function SettingsButton( {studyTime, breakTime, repetitions, playSounds, updateP
     <div className=''>
       {!settings && (
         <button onClick={handleSettings}>
-          <IoSettingsSharp size={70} color='DimGrey' />
+          <IoSettingsSharp size={50} color='DimGrey' />
         </button>
       )}
       {

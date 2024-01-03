@@ -5,11 +5,10 @@ import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 
 function App() {
   return (
-      <div className="flex flex-col min-h-screen"
+    <div className='flex flex-col min-h-screen bg-auto'>
+      <div className="flex flex-col flex-grow"
       style={{
         backgroundImage: `url(/wallpaper.jpg)`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
       }}
       >
         <Router>
@@ -33,6 +32,7 @@ function App() {
           </div>
         </Router>
       </div>
+    </div>
   )
 }
 

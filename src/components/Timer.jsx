@@ -107,12 +107,12 @@ function Timer() {
         <div className='flex flex-col items-center'>
             <div className='mb-4'>
                 <CircularProgressbar
-                    className='sm:size-40 md:size-40 lg:size-30 2xl:mt-12'
+                    className='size-44 mt-12 lg:size-64 xl:size-64 2xl:size-64 lg:mt-8 xl:mt-8 2xl:mt-8'
                     value={
                         currentPhase === 'study'
                         ? ((studyTime * 60 - timeRemaining) / (studyTime * 60)) * 100
                         : ((breakTime * 60 - timeRemaining) / (breakTime * 60)) * 100
-                    }
+                    }   
                     text={formatTime(timeRemaining)}
                     styles={{
                         path: {
@@ -125,7 +125,7 @@ function Timer() {
                 />
             </div>
 
-            <div className='flex justify-center mt-4'>
+            <div className='flex justify-between mt-4'>
                 <div className='flex items-center'>
                 <PlayStopButton onClick={handleButtonClick} isPlaying={isRunning} className="text-xl px-4 py-2"/>  
                 <RestartButton onClick={handleResetClick} className="text-xl px-4 py-2"/>              
